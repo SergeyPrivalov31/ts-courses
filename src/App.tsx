@@ -7,48 +7,35 @@ import TodoItem from './components/TodoItem'
 import UserItem from './components/UserItem'
 import UserList from './components/UserList'
 import { ITodo, IUser} from './types/types'
+import {BrowserRouter, NavLink, Route} from 'react-router-dom'
+import UsersPage from './components/UsersPage'
+import TodosPage from './components/TodosPage'
+import UserItemPage from './components/UserItemPage'
+import TodoItemPage from './components/TodoItemPage'
 
 const  App = () => {
-    const [users, setUsers] = useState<IUser[]>([])  
-    const [todos, setTodos] = useState<ITodo[]>([])  
-
-    useEffect( () => {
-      fetchUsers()
-      fetchTodos()
-    }, [])
-
-    async function fetchUsers(){
-      try{
-        const response = await axios.get<IUser[]>('https://jsonplaceholder.typicode.com/users');
-        setUsers(response.data)
-      } catch (e) {
-        alert(e)
-      }
-    }
-    async function fetchTodos(){
-      try{
-        const response = await axios.get<ITodo[]>('https://jsonplaceholder.typicode.com/todos?_limit=10');
-        setTodos(response.data)
-      } catch (e) {
-        alert(e)
-      }
-    }
   return (
-    <div>
-      <EventsExample />
-      <Card onClick={()=> console.log('Клик!')} variant={CardVariant.outlined} width='200px' height='200px'>
+    <BrowserRouter>
+      <div>
         <div>
-        <button>
-          Кнопка
-        </button>
-          <div>
-            Какой-то текст
-          </div>
-        </div>
-      </Card>
-      <List items={users} renderItem={(user: IUser) => <UserItem key={user.id} user={user} />} />
-      <List items={todos} renderItem={(todo: ITodo) => <TodoItem key={todo.id} todo={todo} />} />
-    </div>
+          <NavLink style={{textDecoration: 'none'}} to='/users'>Пользователи</NavLink>
+          <br />
+          <NavLink style={{textDecoration: 'none'}} to='/todos'>Спислк дел</NavLink>
+        </div>   
+        <Route path='/users' >
+          <UsersPage />
+        </Route>   
+        <Route path='/todos' >
+          <TodosPage />
+        </Route>   
+        <Route path='/users/:id' >
+          <UserItemPage />
+        </Route>   
+        <Route path='/todos/:id' >
+          <TodoItemPage />
+        </Route>   
+      </div>
+    </BrowserRouter>
   )
 }
 
