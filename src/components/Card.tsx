@@ -9,18 +9,21 @@ interface CardProps {
   width?: string;
   height?: string;
   variant: CardVariant;
+  onClick: () => void; //ничего не принимает и ничегоо не возвращает, поэтому void (number, string//)
 }
 
 const Card: FC<CardProps> =
   ({
-    width, height, children, variant
+    width, height, children, variant, onClick
   }) => {
     return (
       <div style={{
         width, height,
         border: variant === CardVariant.outlined ? '1px solid lightGray' : 'none',
         backgroundColor: variant === CardVariant.primary ? 'lightGray' : '',
-        borderRadius: '10px' }}>
+        borderRadius: '10px' }}
+        onClick={onClick}
+        >
         {children}
       </div>
     )
