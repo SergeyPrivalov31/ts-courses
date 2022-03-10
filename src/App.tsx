@@ -1,12 +1,5 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import Card, { CardVariant } from './components/Card'
-import EventsExample from './components/EventsExample'
-import List from './components/List'
-import TodoItem from './components/TodoItem'
-import UserItem from './components/UserItem'
-import UserList from './components/UserList'
-import { ITodo, IUser} from './types/types'
+
+import React from 'react'
 import {BrowserRouter, NavLink, Route} from 'react-router-dom'
 import UsersPage from './components/UsersPage'
 import TodosPage from './components/TodosPage'
@@ -20,7 +13,7 @@ const  App = () => {
         <div>
           <NavLink style={{textDecoration: 'none'}} to='/users'>Пользователи</NavLink>
           <br />
-          <NavLink style={{textDecoration: 'none'}} to='/todos'>Спислк дел</NavLink>
+          <NavLink style={{textDecoration: 'none'}} to='/todos'>Список дел</NavLink>
         </div>   
         <Route path='/users' >
           <UsersPage />
@@ -28,10 +21,10 @@ const  App = () => {
         <Route path='/todos' >
           <TodosPage />
         </Route>   
-        <Route path='/users/:id' >
+        <Route path='/user/:id' >
           <UserItemPage />
         </Route>   
-        <Route path='/todos/:id' >
+        <Route path='/todo/:id' >
           <TodoItemPage />
         </Route>   
       </div>

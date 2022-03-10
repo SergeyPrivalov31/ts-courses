@@ -1,10 +1,7 @@
 import axios from 'axios'
 import React, { FC, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { IUser } from '../types/types'
-//Компонент не работает так как JsnoPlaceholder не вовзращает пользователей по одному
-
-
 
 interface UserItemPageParams {
     id: string;
@@ -14,6 +11,7 @@ const UserItemPage: FC = () => {
 
     const [user, setUser] = useState<IUser | null>(null)  
     const params = useParams<UserItemPageParams>() 
+    const history = useHistory()
 
     useEffect( () => {
         fetchUser()
@@ -21,7 +19,7 @@ const UserItemPage: FC = () => {
 
       async function fetchUser(){
         try{
-          const response = await axios.get<IUser>('https://jsonplaceholder.typicode.com/users' + params.id);
+          const response = await axios.get<IUser>('https://jsonplaceholder.typicode.com/users/' + params.id);
           setUser(response.data)
         } catch (e) {
           alert(e)
@@ -30,7 +28,7 @@ const UserItemPage: FC = () => {
 
   return (
     <div>
-        <button>Назад</button>
+        <button onClick={()=> { history.push('/users')}}>Назад</button>
         <h1>Страница пользователя {user?.name}</h1>
         <div>
             {user?.email}
